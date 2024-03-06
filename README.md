@@ -1,10 +1,10 @@
 # dockerfiles
 
-This repository contains various dockerized tools used in security assesments with a focus on minimazing image size.
+This repository contains various dockerized tools used in security assesments with a focus on minimizing image size.
 
 To reduce the size of the docker image, we use [multi-stage](https://docs.docker.com/build/building/multi-stage/) builds and selectively copy artifacts from one stage to another, leaving behind everything we don't want in the final image.
 
-For example [openredirex](https://github.com/ax-ng/dockerfiles/blob/main/openredirex/Dockerfile):
+For example [openredirex](https://github.com/Attack-Surge/dockerfiles/blob/main/openredirex/Dockerfile):
 
 ```
 ##########################################################
