@@ -1,0 +1,3 @@
+## Usage
+
+`docker run -it --rm --mount type=bind,source="$(pwd)",target=/data axiom/gorgo -U usernames.txt -P passwords.txt -H /data/input --protocols ftp:21,ssh:22 --generate -o /data/output"`

@@ -1,0 +1,8 @@
+FROM golang:alpine as build
+RUN apk --no-cache add git
+RUN GO111MODULE=on go install github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest
+
+FROM alpine:latest
+COPY --from=build /go/bin/interactsh-client /bin/interactsh-client
+ENV HOME /
+ENTRYPOINT ["/bin/interactsh-client"]

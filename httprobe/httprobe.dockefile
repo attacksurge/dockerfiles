@@ -1,0 +1,8 @@
+FROM golang:alpine as build
+RUN apk --no-cache add git
+RUN go install github.com/tomnomnom/httprobe@latest
+
+FROM alpine:latest
+COPY --from=build /go/bin/httprobe /bin/httprobe
+ENV HOME /
+ENTRYPOINT ["/bin/httprobe"]

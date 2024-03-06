@@ -1,0 +1,8 @@
+FROM golang:alpine as build
+RUN apk --no-cache add git
+RUN GO111MODULE=on go install -v github.com/lc/subjs@latest
+
+FROM alpine:latest
+COPY --from=build /go/bin/subjs /bin/subjs
+ENV HOME /
+ENTRYPOINT ["/bin/subjs"]

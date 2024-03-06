@@ -1,0 +1,8 @@
+FROM golang:alpine as build
+RUN apk --no-cache add git build-base
+RUN GO111MODULE=on go install github.com/projectdiscovery/dnsx/cmd/dnsx@latest
+
+FROM alpine:latest
+COPY --from=build /go/bin/dnsx /bin/dnsx
+ENV HOME /
+ENTRYPOINT ["/bin/dnsx"]

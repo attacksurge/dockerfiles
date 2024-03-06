@@ -1,0 +1,8 @@
+FROM golang:alpine as build
+RUN apk --no-cache add git
+RUN go install github.com/tomnomnom/qsreplace@latest
+
+FROM alpine:latest
+COPY --from=build /go/bin/qsreplace /bin/qsreplace
+ENV HOME /
+ENTRYPOINT ["/bin/qsreplace"]

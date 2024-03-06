@@ -1,0 +1,9 @@
+FROM golang:alpine as build
+RUN apk --no-cache add git
+RUN go install github.com/tomnomnom/hacks/concurl@latest
+
+FROM alpine:latest
+RUN apk add curl
+COPY --from=build /go/bin/concurl /bin/concurl
+ENV HOME /
+ENTRYPOINT ["/bin/concurl"]

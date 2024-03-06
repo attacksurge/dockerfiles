@@ -1,0 +1,9 @@
+FROM golang:alpine as build
+RUN apk --no-cache add git
+RUN GO111MODULE=on go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+RUN subfinder -d hackerone.com; exit 0
+
+FROM alpine:latest
+COPY --from=build /go/bin/subfinder /bin/subfinder
+COPY --from=build /root/.config/subfinder/config.yaml /root/.config/subfinder/config.yaml
+ENTRYPOINT ["/bin/subfinder"]

@@ -1,0 +1,9 @@
+# | needs to be escaped --> gron URL \| fgrep blah
+FROM golang:alpine as build
+RUN apk --no-cache add git
+RUN go install github.com/tomnomnom/gron@latest
+
+FROM alpine:latest
+COPY --from=build /go/bin/gron /bin/gron
+ENV HOME /
+ENTRYPOINT ["/bin/gron"]

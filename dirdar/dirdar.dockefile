@@ -1,0 +1,8 @@
+FROM golang:alpine as build
+RUN apk --no-cache add git
+RUN go install github.com/m4dm0e/dirdar@latest
+
+FROM alpine:latest
+COPY --from=build /go/bin/dirdar /bin/dirdar
+ENV HOME /
+ENTRYPOINT ["/bin/dirdar"]
